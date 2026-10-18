@@ -164,7 +164,13 @@
 
         let products = [];
         let activeCategory = 'tum';
-        let favorites = JSON.parse(localStorage.getItem('favs') || '[]');
+        
+        let favorites = [];
+        try {
+            favorites = JSON.parse(localStorage.getItem('favs') || '[]');
+        } catch (e) {
+            favorites = [];
+        }
 
         const categoryContainer = document.getElementById('categoryContainer');
         const productList = document.getElementById('productList');
@@ -250,7 +256,9 @@
             } else {
                 favorites.push(id);
             }
-            localStorage.setItem('favs', JSON.stringify(favorites));
+            try {
+                localStorage.setItem('favs', JSON.stringify(favorites));
+            } catch (e) {}
             renderProducts();
         }
 
